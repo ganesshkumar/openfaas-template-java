@@ -20,9 +20,7 @@ faas-cli deploy -f java-function.yml
 echo test | faas-cli invoke java-function
 ```
 
-## Current Restrictions
-**Note:** These points has to be addressed in a better way
-
+#### Current limitation
 * The template looks for `function.Handler` class which has a method called `function`
 ```java
 package function;
@@ -33,3 +31,5 @@ public class Handler {
     }
 }
 ```
+
+**Note:** These willbe addressed in a better way

@@ -2,3 +2,5 @@
 **/.gradle/
 **/.DS_Store
 **/*.class
+**/*.jar
+**/*.class
