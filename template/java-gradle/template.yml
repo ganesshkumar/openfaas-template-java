@@ -1,2 +1,2 @@
-language: java8
-fprocess: java -cp '.:function/build/libs/*' Main
+language: java-gradle
+fprocess: "java -cp .:libs/java8-gradle-1.0.jar Main"

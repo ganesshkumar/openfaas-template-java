@@ -4,11 +4,12 @@ USER root
 
 RUN mkdir -p /root/src/
 
-ADD function /root/src/
-WORKDIR /root/src/
-RUN ./gradlew
+ADD function /root/src/function
+WORKDIR /root/src/function
+RUN ./gradlew build
 
 ADD Main.java /root/src/
+ADD com/openfaas/afterburn /root/src/com/openfaas/afterburn
 WORKDIR /root/src
 RUN javac -cp ".:function/build/libs/*"  Main.java
 
@@ -16,7 +17,7 @@ FROM openjdk:8-jdk-alpine
 
 RUN apk --no-cache add curl \
     && echo "Pulling watchdog binary from Github." \
-    && curl -sSL https://github.com/openfaas-incubator/of-watchdog/releases/download/0.0.4/of-watchdog > /usr/bin/fwatchdog \
+    && curl -sSL https://github.com/openfaas-incubator/of-watchdog/releases/download/0.1.0/of-watchdog > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog \
     && apk del curl --no-cache
 
@@ -25,12 +26,12 @@ WORKDIR /home/runner
 USER runner
 
 COPY --from=builder /root/src/function/build/libs /home/runner/libs
+COPY --from=builder /root/src/com/openfaas/afterburn/parser/*.class /home/runner/com/openfaas/afterburn/parser/
 COPY --from=builder /root/src/Main.class /home/runner
 
+ENV fprocess="java -cp .:libs/java8-gradle-1.0.jar Main"
 ENV afterburn=true
 ENV mode=afterburn
-ENV fprocess="java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -cp '.:function/build/libs/*' Main"
 
 HEALTHCHECK --interval=1s CMD [ -e /tmp/.lock ] || exit 1
-
 CMD ["fwatchdog"]
