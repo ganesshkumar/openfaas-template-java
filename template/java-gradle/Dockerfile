@@ -1,4 +1,4 @@
-FROM anapsix/alpine-java:8_jdk as builder
+FROM openjdk:8-jdk-alpine as builder
 
 USER root
 
@@ -12,7 +12,7 @@ ADD Main.java /root/src/
 WORKDIR /root/src
 RUN javac -cp ".:function/build/libs/*"  Main.java
 
-FROM anapsix/alpine-java:8_server-jre
+FROM openjdk:8-jdk-alpine
 
 RUN apk --no-cache add curl \
     && echo "Pulling watchdog binary from Github." \
