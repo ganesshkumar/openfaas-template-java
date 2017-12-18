@@ -13,7 +13,7 @@ ADD com/openfaas/afterburn /root/src/com/openfaas/afterburn
 WORKDIR /root/src
 RUN javac -cp ".:function/build/libs/*"  Main.java
 
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8-jre-alpine
 
 RUN apk --no-cache add curl \
     && echo "Pulling watchdog binary from Github." \
