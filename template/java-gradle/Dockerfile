@@ -5,7 +5,7 @@ USER root
 RUN mkdir -p /root/src/
 
 ADD function /root/src/
-WORKDIR /root/src/function
+WORKDIR /root/src/
 RUN ./gradlew
 
 ADD Main.java /root/src/
