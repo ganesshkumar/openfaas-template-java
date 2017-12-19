@@ -1,7 +1,7 @@
 package com.openfaas.afterburn.parser;
 
 public class Response {
-    private static final String SEPARATOR = "/r/n";
+    private static final String SEPARATOR = "\r\n";
 
     private String status;
     private String body;

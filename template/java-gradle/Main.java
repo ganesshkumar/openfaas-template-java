@@ -8,12 +8,12 @@ import java.io.OutputStreamWriter;
 public class Main {
     public static void main(String[] args) throws IOException {
         DataInputStream inputStream = new DataInputStream(System.in);
-        BufferedWriter outputWritter = new BufferedWriter(new OutputStreamWriter(System.out));
+        BufferedWriter outputWriter = new BufferedWriter(new OutputStreamWriter(System.out));
 
         Parser parser = new Parser();
 
         while(true) {
-            parser.acceptIncoming(inputStream, outputWritter);
+            parser.acceptIncoming(inputStream, outputWriter);
         }
     }
 }
